@@ -25,6 +25,13 @@ import {
   NPopover,
   NPopselect,
   NTooltip,
+  NGi,
+  NDataTable,
+  NCheckbox,
+  NCheckboxGroup,
+  NInput,
+  NSpace,
+  NDynamicTags,
 } from 'naive-ui'
 
 const naive = create({
@@ -54,6 +61,13 @@ const naive = create({
     NPopover,
     NPopselect,
     NTooltip,
+    NGi,
+    NDataTable,
+    NCheckbox,
+    NCheckboxGroup,
+    NInput,
+    NSpace,
+    NDynamicTags,
   ],
 })
 

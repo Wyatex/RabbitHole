@@ -8,13 +8,9 @@
       <div class="logo">
         <img src="@/assets/logo.png" alt="" />
       </div>
-      <n-gradient-text type="success" :size="64">
-        Vue3 Starter
-      </n-gradient-text>
+      <n-gradient-text type="success" :size="64"> 兔子树洞 </n-gradient-text>
       <n-h1 prefix="bar" type="success">
-        <n-gradient-text type="danger">
-          一个开箱即用的Vue3项目模板
-        </n-gradient-text>
+        <n-gradient-text type="danger"> 一个用心做的树洞x </n-gradient-text>
       </n-h1>
       <div class="mt-4 btns">
         <n-button size="large" type="primary" class="mr-8" @click="handlerBtn">

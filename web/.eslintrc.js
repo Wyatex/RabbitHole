@@ -25,5 +25,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     'vue/valid-template-root': 'off',
     'vue/require-default-prop': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vue/attributes-order': 'off',
   },
 }

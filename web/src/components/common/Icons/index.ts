@@ -4,6 +4,8 @@ import {
   GithubOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
+  MinusOutlined,
+  DeleteOutlined,
 } from '@vicons/antd'
 
 import {
@@ -22,6 +24,8 @@ export {
   GithubOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
+  MinusOutlined,
+  DeleteOutlined,
   // ionicons5
   PersonOutline,
   HomeOutline,

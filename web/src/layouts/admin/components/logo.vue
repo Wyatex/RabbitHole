@@ -2,7 +2,7 @@
   <div class="logo">
     <transition :name="getTransitionName" mode="out-in" appear>
       <img v-if="collapsed" src="@/assets/logo.png" alt="" />
-      <span v-else class="text-xl font-bold">Vue3 Starter</span>
+      <span v-else class="text-xl font-bold">兔子树洞</span>
     </transition>
   </div>
 </template>

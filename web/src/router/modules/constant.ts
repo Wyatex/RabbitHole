@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 
-import layout from '@/layouts/index.vue'
+import layout from '@/layouts/admin/index.vue'
+import mobileLayout from '@/layouts/user/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,7 +23,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Root',
-    redirect: '/home',
+    component: mobileLayout,
+    meta: {
+      hidden: true,
+    },
+    children: [
+      {
+        path: '',
+        name: 'CommentList',
+        component: () => import('@/views/user/CommentList.vue'),
+      },
+      {
+        path: 'add',
+        name: 'CommentAdd',
+        component: () => import('@/views/user/CommentAdd.vue'),
+      },
+    ],
   },
 ]
 
