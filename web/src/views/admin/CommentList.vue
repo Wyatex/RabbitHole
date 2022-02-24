@@ -37,7 +37,7 @@
     </n-card>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { BasicTable, TableAction } from '@/components/common/Table'
 import { useDialog, useMessage } from 'naive-ui'
 import { ref, reactive, h } from 'vue'
@@ -161,7 +161,7 @@ const handleDelete = async e => {
         message.success('删除成功')
         reloadTable()
       } else {
-        message.fail('删除失败')
+        message.error('删除失败')
       }
     },
     onNegativeClick: () => {

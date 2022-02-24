@@ -71,7 +71,7 @@ const onAdd = async () => {
     Toast.success('发表成功')
     router.back()
   } else {
-    Toast.success('发表失败，原因：' + res.message)
+    Toast.fail('发表失败，原因：' + res.message)
   }
   loading.value = false
 }

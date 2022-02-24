@@ -6,6 +6,7 @@ import {
   FullscreenExitOutlined,
   MinusOutlined,
   DeleteOutlined,
+  PlusOutlined,
 } from '@vicons/antd'
 
 import {
@@ -26,6 +27,7 @@ export {
   FullscreenExitOutlined,
   MinusOutlined,
   DeleteOutlined,
+  PlusOutlined,
   // ionicons5
   PersonOutline,
   HomeOutline,

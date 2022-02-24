@@ -54,7 +54,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '',
         name: 'blockWordIndex',
-        component: () => import('@/views/admin/CommentList.vue'),
+        component: () => import('@/views/admin/BlockWordList.vue'),
         meta: {
           title: '敏感词',
         },

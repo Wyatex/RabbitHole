@@ -9,13 +9,13 @@ module.exports = async function (params, context) {
   // 写入数据
   const blockWordTable = inspirecloud.db.table('block_word')
   const count = blockWordTable.where({ word }).limit(1).count()
-  if (count) {
+  if (count > 0) {
     return {
       success: false,
       message: '该屏蔽词已存在',
     }
   }
-  await commentTable.save({
+  await blockWordTable.save({
     word,
   })
   return {

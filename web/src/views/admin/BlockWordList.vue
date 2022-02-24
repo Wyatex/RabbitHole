@@ -1,47 +1,78 @@
 <template>
   <div class="flex flex-col h-full">
     <n-card class="flex-1 shadow rounded-16px">
-      <n-h2>敏感词管理</n-h2>
-      <!-- 动态标签或者table选一个 -->
-      <n-dynamic-tags />
-      <BasicTable
-        :columns="columns"
-        :request="loadDataTable"
-        :row-key="row => row._id"
-        ref="actionRef"
-        :action-column="actionColumn"
-        @update:checked-row-keys="onCheckedRow"
-        :scroll-x="1090"
-      >
-        <template #tableTitle>
-          <n-button @click="handleDeleteByIds" class="mr-2" type="primary">
-            <template #icon>
-              <n-icon>
-                <DeleteOutlined />
-              </n-icon>
+      <n-grid :col="24" :x-gap="24" :y-gap="16">
+        <n-gi :span="6">
+          <n-input
+            v-model:value="blockWord"
+            placeholder="请输入敏感词进行查询"
+          />
+        </n-gi>
+        <n-gi :span="12">
+          <n-button @click="reloadTable" type="primary" class="mr-2"
+            >查询</n-button
+          >
+          <n-button @click="blockWord = ''" class="mr-2">重置</n-button>
+        </n-gi>
+        <n-gi :span="24">
+          <BasicTable
+            :columns="columns"
+            :request="loadDataTable"
+            :row-key="row => row._id"
+            ref="actionRef"
+            :action-column="actionColumn"
+            @update:checked-row-keys="onCheckedRow"
+            :scroll-x="1090"
+          >
+            <template #tableTitle>
+              <n-button @click="handleDeleteByIds" class="mr-2" type="error">
+                <template #icon>
+                  <n-icon>
+                    <DeleteOutlined />
+                  </n-icon>
+                </template>
+                批量删除
+              </n-button>
+              <n-button
+                @click="formRef.openAddForm()"
+                class="mr-2"
+                type="primary"
+              >
+                <template #icon>
+                  <n-icon>
+                    <PlusOutlined />
+                  </n-icon>
+                </template>
+                添加
+              </n-button>
             </template>
-            批量删除
-          </n-button>
-        </template>
-      </BasicTable>
+          </BasicTable>
+        </n-gi>
+      </n-grid>
     </n-card>
+    <BlockWorldForm ref="formRef" @ok="handleOk" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { BasicTable, TableAction } from '@/components/common/Table'
 import { useDialog, useMessage } from 'naive-ui'
 import { ref, reactive, h, Ref } from 'vue'
 import { axios } from '@/utils/http'
+import BlockWorldForm from './BlockWorldForm.vue'
+import dayjs from 'dayjs'
 
 interface IBlockWord {
-    word: string
-    createdAt: string
+  _id: string
+  word: string
+  createdAt: string
 }
 
 const message = useMessage()
 const dialog = useDialog()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const blockWordList: Ref<IBlockWord[]> = ref([])
+const actionRef = ref()
+const formRef = ref()
+const blockWord = ref('')
+const checkList: Ref<string[]> = ref([])
 
 // 表头
 const columns = [
@@ -53,7 +84,11 @@ const columns = [
   {
     title: '创建时间',
     key: 'createdAt',
-    width: 50,
+    width: 30,
+    render(row: IBlockWord) {
+      console.log(row)
+      return dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss')
+    },
   },
 ]
 
@@ -100,9 +135,13 @@ const loadDataTable = async res => {
     method: 'post',
     data: {
       ...res,
-      keyword: keyword.value,
+      word: blockWord.value,
     },
   })
+}
+
+const handleOk = () => {
+  reloadTable()
 }
 
 const handleDeleteByIds = async () => {
@@ -135,13 +174,13 @@ const handleDeleteByIds = async () => {
 }
 
 const handleEdit = async e => {
-  console.log(e)
+  formRef.value.openEditForm(e)
 }
 
 const handleDelete = async e => {
   dialog.warning({
     title: '警告',
-    content: `请确定是否删除昵称 ${e.nickname} 的留言信息？`,
+    content: `请确定是否删除敏感词 ${e.word}？`,
     positiveText: '确定',
     negativeText: '取消',
     onPositiveClick: async () => {
@@ -156,7 +195,7 @@ const handleDelete = async e => {
         message.success('删除成功')
         reloadTable()
       } else {
-        message.fail('删除失败')
+        message.error('删除失败')
       }
     },
     onNegativeClick: () => {
