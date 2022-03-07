@@ -2,10 +2,11 @@ import { RouteRecordRaw } from 'vue-router'
 import { renderIcon, renderSvgIcon } from '@/utils'
 import layout from '@/layouts/admin/index.vue'
 import { HomeOutline as HomeIcon } from '@/components/common/Icons'
+import { adminUrl } from '@/settings'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/admin',
+    path: adminUrl as string,
     name: 'admin',
     component: layout,
     meta: {
@@ -24,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: '/comments',
+    path: adminUrl + '/comments',
     name: 'comments',
     component: layout,
     meta: {
@@ -43,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: '/block-word',
+    path: adminUrl + '/block-word',
     name: 'blockWord',
     component: layout,
     meta: {

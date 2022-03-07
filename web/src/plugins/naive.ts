@@ -32,6 +32,8 @@ import {
   NInput,
   NSpace,
   NDynamicTags,
+  NTimeline,
+  NTimelineItem,
 } from 'naive-ui'
 
 const naive = create({
@@ -68,6 +70,8 @@ const naive = create({
     NInput,
     NSpace,
     NDynamicTags,
+    NTimeline,
+    NTimelineItem,
   ],
 })
 

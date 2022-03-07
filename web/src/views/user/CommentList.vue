@@ -7,11 +7,11 @@
         @search="onSearch"
       />
       <div v-if="loading">
-        <skeleton avatar :row="4" />
-        <skeleton avatar :row="4" />
-        <skeleton avatar :row="4" />
-        <skeleton avatar :row="4" />
-        <skeleton avatar :row="4" />
+        <skeleton :row="4" />
+        <skeleton :row="4" />
+        <skeleton :row="4" />
+        <skeleton :row="4" />
+        <skeleton :row="4" />
       </div>
       <div class="content">
         <list
@@ -26,9 +26,38 @@
             v-for="item in dataList"
             :key="item._id"
           >
-            <cell title="昵称" :value="item.nickname"></cell>
-            <cell title="留言时间" :value="formatTime(item.createdAt)"></cell>
-            <cell title="留言内容" :label="item.comment"></cell>
+            <cell v-if="item.nickname">
+              <template #title>
+                <span
+                  style="color: var(--van-cell-value-color); font-size: 10px"
+                  >{{ item.nickname }}</span
+                >
+              </template>
+              <template #value>
+                <span
+                  style="color: var(--van-cell-value-color); font-size: 10px"
+                  >{{ formatTime(item.createdAt) }}</span
+                >
+              </template>
+            </cell>
+            <cell v-else>
+              <template #title>
+                <span></span>
+              </template>
+              <template #value>
+                <span
+                  style="color: var(--van-cell-value-color); font-size: 10px"
+                  >{{ formatTime(item.createdAt) }}</span
+                >
+              </template>
+            </cell>
+            <cell>
+              <template #title>
+                <span style="white-space: pre-wrap">
+                  {{ item.comment }}
+                </span>
+              </template>
+            </cell>
           </cell-group>
         </list>
       </div>
@@ -42,6 +71,7 @@ import { axios } from '@/utils/http'
 import dayjs from 'dayjs'
 
 interface IComment {
+  _id: string
   nickname: string
   comment: string
   createdAt: string

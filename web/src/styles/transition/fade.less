@@ -79,3 +79,43 @@
   opacity: 0;
   transform: translateY(-8%);
 }
+
+// ///////////////////////////////////////////////
+// fade-left
+// ///////////////////////////////////////////////
+
+// Speed: 1x
+.fade-left-enter-active,
+.fade-left-leave-active {
+  transition: opacity 0.2s, transform 0.25s;
+}
+
+.fade-left-enter-from {
+  opacity: 0;
+  transform: translateX(8%);
+}
+
+.fade-left-leave-to {
+  opacity: 0;
+  transform: translateX(-8%);
+}
+
+// ///////////////////////////////////////////////
+// fade-right
+// ///////////////////////////////////////////////
+
+// Speed: 1x
+.fade-right-enter-active,
+.fade-right-leave-active {
+  transition: opacity 0.2s, transform 0.25s;
+}
+
+.fade-right-enter-from {
+  opacity: 0;
+  transform: translateX(-8%);
+}
+
+.fade-right-leave-to {
+  opacity: 0;
+  transform: translateX(8%);
+}

@@ -63,9 +63,20 @@ const columns = [
     width: 150,
   },
   {
+    title: '过期时间',
+    key: 'expiration',
+    width: 50,
+    render(row) {
+      if (row.expiration) {
+        return dayjs(row.expiration).format('YYYY-MM-DD HH:mm:ss')
+      }
+      return ''
+    },
+  },
+  {
     title: '发表时间',
     key: 'createdAt',
-    width: 30,
+    width: 50,
     render(row) {
       console.log(row)
       return dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss')
@@ -75,7 +86,7 @@ const columns = [
 
 // 表格操作栏
 const actionColumn = reactive({
-  width: 20,
+  width: 30,
   title: '操作',
   key: 'action',
   fixed: 'right',
@@ -111,6 +122,7 @@ const loadDataTable = async res => {
     data: {
       ...res,
       keyword: keyword.value,
+      isAdmin: true,
     },
   })
 }

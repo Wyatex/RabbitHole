@@ -1,11 +1,20 @@
 module.exports = async function (params, context) {
-  const { nickname, comment } = params
-  if (!nickname || !comment) {
+  let { nickname, comment, expiration } = params
+  if (!comment) {
     return {
       success: false,
-      message: '请输入昵称和内容',
+      message: '请输入内容',
     }
   }
+  // 检查时间是否为时间戳
+  if (expiration && typeof expiration !== 'number') {
+    return {
+      success: false,
+      message: '到期时间格式不正确',
+    }
+  }
+
+  nickname = nickname ? nickname : ''
   // 检查是否有敏感词
   const blockWordTable = inspirecloud.db.table('block_word')
   const blockWordList = (await blockWordTable.where().find()).map((e) => e.word)
@@ -29,6 +38,7 @@ module.exports = async function (params, context) {
   await commentTable.save({
     nickname,
     comment,
+    expiration,
   })
   return {
     success: true,

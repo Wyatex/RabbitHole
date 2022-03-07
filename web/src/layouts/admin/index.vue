@@ -28,7 +28,7 @@
           content-style="width: 100%;display: flex;flex-direction: column;"
           :class="{ 'layout-default-background': inverted === false }"
         >
-          <div class="flex-1 p-16px">
+          <div class="flex-1 p-20px">
             <content-view />
           </div>
           <n-layout-footer

@@ -11,3 +11,5 @@ export function renderIcon(icon) {
 export function renderSvgIcon(svgName) {
   return () => h(NIcon, null, { default: () => h(SvgIcon, { name: svgName }) })
 }
+
+export * from './is'

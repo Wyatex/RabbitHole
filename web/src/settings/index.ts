@@ -15,3 +15,6 @@ export const requestTimeout = 5000
 
 //路由动画类型
 export const animationType = 'zoom-fade'
+
+// 后台地址
+export const adminUrl = import.meta.env.VITE_ADMIN_URL

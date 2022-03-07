@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@antv/g2plot": "^2.4.8",
     "@vueuse/core": "^7.6.2",
     "axios": "^0.24.0",
     "crypto-js": "^4.1.1",

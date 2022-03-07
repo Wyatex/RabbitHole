@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': ['off'],
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     'vue/valid-template-root': 'off',
     'vue/require-default-prop': 'off',
     'vue/multi-word-component-names': 'off',
