@@ -1,17 +1,17 @@
 <template>
   <div class="page">
-    <config-provider :theme-vars="themeVars" class="h-full flex flex-col">
-      <nav-bar fixed safe-area-inset-top :title="commentStore.currentPage">
-        <template v-if="inCommentAddPage" #left>
-          <icon name="arrow-left" size="28" @click="back" />
+    <van-config-provider :theme-vars="themeVars" class="h-full flex flex-col">
+      <van-nav-bar fixed safe-area-inset-top :title="commentStore.currentPage">
+        <template v-if="navBarLeftIcon" #left>
+          <van-icon name="arrow-left" size="28" @click="back" />
         </template>
         <template #title>
           <span class="font-bold text-xl">兔子树洞 · {{ pageName }}</span>
         </template>
-        <template v-if="inRootPage" #right>
-          <icon name="plus" size="28" @click="toAdd" />
+        <template v-if="navBarRightIcon" #right>
+          <van-icon name="plus" size="28" @click="toAdd" />
         </template>
-      </nav-bar>
+      </van-nav-bar>
       <div class="h-[60px]"></div>
 
       <router-view v-slot="{ Component }">
@@ -19,31 +19,15 @@
           <component :is="Component" :key="route.fullPath" />
         </transition>
       </router-view>
-      <!-- <router-view /> -->
-      <!-- <action-bar class="flex justify-evenly">
-        <action-bar-icon icon="chat-o" text="发表" />
-        <action-bar-icon icon="user-o" text="我的" />
-        <action-bar-button type="danger" text="登录 / 注册" />
-      </action-bar> -->
-      <tabbar v-model="activePage">
-        <tabbar-item icon="chat-o">留言</tabbar-item>
-        <tabbar-item icon="user-o">我的</tabbar-item>
-      </tabbar>
-    </config-provider>
+      <van-tabbar v-model="activePage" v-if="tabbarShow">
+        <van-tabbar-item icon="chat-o" @click="toHome">留言</van-tabbar-item>
+        <van-tabbar-item icon="user-o" @click="toMine">我的</van-tabbar-item>
+      </van-tabbar>
+    </van-config-provider>
   </div>
 </template>
 <script setup lang="ts" name="MobieLayout">
 import { useRouter, useRoute } from 'vue-router'
-import {
-  ConfigProvider,
-  NavBar,
-  Icon,
-  ActionBar,
-  ActionBarIcon,
-  ActionBarButton,
-  Tabbar,
-  TabbarItem,
-} from 'vant'
 import { useCommentStore } from '@/store/modules/comment'
 import { watch, ref } from 'vue'
 
@@ -57,9 +41,11 @@ const themeVars = {
   skeletonAvatarBackgroundColor: '#eaeaea',
 }
 const pageName = ref('首页')
-const inRootPage = ref(true)
-const inCommentAddPage = ref(false)
 const animationType = ref('')
+
+const navBarLeftIcon = ref(false)
+const navBarRightIcon = ref(false)
+const tabbarShow = ref(true)
 
 const toAdd = () => {
   animationType.value = 'zoom-fade-reverse'
@@ -71,15 +57,39 @@ const back = async () => {
   await router.back()
 }
 
+const toMine = () => {
+  animationType.value = 'fade-left'
+  router.push('/mine')
+}
+
+const toHome = () => {
+  animationType.value = 'fade-right'
+  router.push('/')
+}
+
 const pathJudge = () => {
   if (route.path === '/') {
+    activePage.value = 0
     pageName.value = '首页'
-    inRootPage.value = true
-    inCommentAddPage.value = false
+    navBarLeftIcon.value = false
+    navBarRightIcon.value = true
+    tabbarShow.value = true
   } else if (route.path === '/add') {
     pageName.value = '发表留言'
-    inRootPage.value = false
-    inCommentAddPage.value = true
+    navBarLeftIcon.value = true
+    navBarRightIcon.value = false
+    tabbarShow.value = false
+  } else if (route.path === '/mine') {
+    activePage.value = 1
+    pageName.value = '我的'
+    navBarLeftIcon.value = false
+    navBarRightIcon.value = false
+    tabbarShow.value = true
+  } else if (route.path === '/login') {
+    pageName.value = '登录'
+    navBarLeftIcon.value = true
+    navBarRightIcon.value = false
+    tabbarShow.value = false
   }
 }
 

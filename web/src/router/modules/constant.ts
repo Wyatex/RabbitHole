@@ -38,6 +38,16 @@ const routes: Array<RouteRecordRaw> = [
         name: 'CommentAdd',
         component: () => import('@/views/user/CommentAdd.vue'),
       },
+      {
+        path: 'mine',
+        name: 'Mine',
+        component: () => import('@/views/user/Mine.vue'),
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('@/views/user/Login.vue'),
+      }
     ],
   },
 ]

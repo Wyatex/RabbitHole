@@ -18,3 +18,5 @@ export const animationType = 'zoom-fade'
 
 // 后台地址
 export const adminUrl = import.meta.env.VITE_ADMIN_URL
+
+export const serviceId = import.meta.env.VITE_SERVICE_ID as string

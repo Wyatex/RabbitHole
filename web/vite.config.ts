@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import eslintPlugin from 'vite-plugin-eslint'
 import { resolve } from 'path'
 import { viteMockServe } from 'vite-plugin-mock'
 import windiCSS from 'vite-plugin-windicss'
@@ -9,6 +8,8 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import viteCompression from 'vite-plugin-compression'
 import { createSvgIconsPlugin as svgIconsPlugin } from 'vite-plugin-svg-icons'
 import styleImport, { VantResolve } from 'vite-plugin-style-import'
+import components from 'unplugin-vue-components/vite'
+import {NaiveUiResolver, VantResolver} from 'unplugin-vue-components/resolvers'
 
 export default defineConfig(async ({ mode }) => {
   const root = process.cwd()
@@ -47,6 +48,9 @@ export default defineConfig(async ({ mode }) => {
       }),
       styleImport({
         resolves: [VantResolve()],
+      }),
+      components({
+        resolvers: [NaiveUiResolver(), VantResolver()],
       }),
       viteCompression(),
     ],
