@@ -9,6 +9,7 @@ export const useCommentStore = defineStore({
     commentBy: '',
     pageNo: 1,
     pageSize: 10,
+    animationType: '',
   }),
   getters: {},
   actions: {},

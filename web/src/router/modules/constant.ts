@@ -47,7 +47,12 @@ const routes: Array<RouteRecordRaw> = [
         path: 'login',
         name: 'Login',
         component: () => import('@/views/user/Login.vue'),
-      }
+      },
+      {
+        path: 'reply',
+        name: 'Reply',
+        component: () => import('@/views/user/CommentReply.vue'),
+      },
     ],
   },
 ]

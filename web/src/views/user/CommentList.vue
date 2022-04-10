@@ -51,11 +51,14 @@
                 >
               </template>
             </cell>
-            <cell>
+            <cell is-link @click="toReply(item)">
               <template #title>
                 <span style="white-space: pre-wrap">
                   {{ item.comment }}
                 </span>
+              </template>
+              <template #right-icon>
+                <div></div>
               </template>
             </cell>
           </cell-group>
@@ -69,6 +72,8 @@ import { PullRefresh, Search, Skeleton, List, Cell, CellGroup } from 'vant'
 import { ref, Ref } from 'vue'
 import { axios } from '@/utils/http'
 import dayjs from 'dayjs'
+import { useRouter } from 'vue-router'
+import { useCommentStore } from '@/store/modules/comment'
 
 interface IComment {
   _id: string
@@ -77,6 +82,8 @@ interface IComment {
   createdAt: string
 }
 
+const router = useRouter()
+const commentStore = useCommentStore()
 const loading = ref(false)
 const keyword = ref('')
 const dataList: Ref<IComment[]> = ref([])
@@ -94,6 +101,15 @@ const onSearch = async () => {
   finish.value = false
   loadData()
 }
+
+const toReply = (comment: any) => {
+  commentStore.animationType = 'zoom-fade-reverse'
+  router.push({
+    name: 'Reply',
+    params: comment,
+  })
+}
+
 const loadData = async () => {
   loading.value = true
   if (keyword.value) {

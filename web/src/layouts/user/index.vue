@@ -15,7 +15,7 @@
       <div class="h-[60px]"></div>
 
       <router-view v-slot="{ Component }">
-        <transition :name="animationType" mode="out-in" appear>
+        <transition :name="commentStore.animationType" mode="out-in" appear>
           <component :is="Component" :key="route.fullPath" />
         </transition>
       </router-view>
@@ -41,29 +41,27 @@ const themeVars = {
   skeletonAvatarBackgroundColor: '#eaeaea',
 }
 const pageName = ref('首页')
-const animationType = ref('')
-
 const navBarLeftIcon = ref(false)
 const navBarRightIcon = ref(false)
 const tabbarShow = ref(true)
 
 const toAdd = () => {
-  animationType.value = 'zoom-fade-reverse'
+  commentStore.animationType = 'zoom-fade-reverse'
   router.push('/add')
 }
 
 const back = async () => {
-  animationType.value = 'zoom-fade'
+  commentStore.animationType = 'zoom-fade'
   await router.back()
 }
 
 const toMine = () => {
-  animationType.value = 'fade-left'
+  commentStore.animationType = 'fade-left'
   router.push('/mine')
 }
 
 const toHome = () => {
-  animationType.value = 'fade-right'
+  commentStore.animationType = 'fade-right'
   router.push('/')
 }
 
@@ -87,6 +85,11 @@ const pathJudge = () => {
     tabbarShow.value = true
   } else if (route.path === '/login') {
     pageName.value = '登录'
+    navBarLeftIcon.value = true
+    navBarRightIcon.value = false
+    tabbarShow.value = false
+  } else if (route.path === '/reply') {
+    pageName.value = '回复'
     navBarLeftIcon.value = true
     navBarRightIcon.value = false
     tabbarShow.value = false
