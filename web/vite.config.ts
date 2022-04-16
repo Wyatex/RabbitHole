@@ -9,7 +9,10 @@ import viteCompression from 'vite-plugin-compression'
 import { createSvgIconsPlugin as svgIconsPlugin } from 'vite-plugin-svg-icons'
 import styleImport, { VantResolve } from 'vite-plugin-style-import'
 import components from 'unplugin-vue-components/vite'
-import {NaiveUiResolver, VantResolver} from 'unplugin-vue-components/resolvers'
+import {
+  NaiveUiResolver,
+  VantResolver,
+} from 'unplugin-vue-components/resolvers'
 
 export default defineConfig(async ({ mode }) => {
   const root = process.cwd()

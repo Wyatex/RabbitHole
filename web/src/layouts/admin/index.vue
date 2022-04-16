@@ -31,12 +31,6 @@
           <div class="flex-1 p-20px">
             <content-view />
           </div>
-          <n-layout-footer
-            class="flex items-center justify-center"
-            :class="{ 'bg-white': inverted === false }"
-          >
-            <div class="footer">Copyright ©2021 Vue3 Starter</div>
-          </n-layout-footer>
         </n-layout-content>
       </n-layout>
     </n-layout>
@@ -44,13 +38,6 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  NLayout,
-  NLayoutSider,
-  NLayoutContent,
-  NLayoutHeader,
-  NLayoutFooter,
-} from 'naive-ui'
 import { ref, computed, onMounted } from 'vue'
 import { useSettingStore } from '@/store/modules/setting'
 import NaiveProvider from '@/components/common/NaiveProvider/index.vue'

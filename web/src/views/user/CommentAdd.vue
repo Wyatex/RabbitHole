@@ -75,7 +75,10 @@ import { onUnmounted, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { axios } from '@/utils/http'
 import dayjs from 'dayjs'
+import InspireCloud from '@byteinspire/js-sdk'
+import { serviceId } from '@/settings'
 
+const inspirecloud = new InspireCloud({ serviceId })
 const router = useRouter()
 const loading = ref(false)
 const nickname = ref('')
@@ -90,23 +93,15 @@ const onAdd = async () => {
   loading.value = true
   let res
   if (expiration.value != null) {
-    res = await axios({
-      url: '/CommentAdd',
-      method: 'post',
-      data: {
-        comment: comment.value,
-        nickname: nickname.value,
-        expiration: expiration.value,
-      },
+    res = await inspirecloud.run('CommentAdd', {
+      comment: comment.value,
+      nickname: nickname.value,
+      expiration: expiration.value,
     })
   } else {
-    res = await axios({
-      url: '/CommentAdd',
-      method: 'post',
-      data: {
-        comment: comment.value,
-        nickname: nickname.value,
-      },
+    res = await inspirecloud.run('CommentAdd', {
+      comment: comment.value,
+      nickname: nickname.value,
     })
   }
 
